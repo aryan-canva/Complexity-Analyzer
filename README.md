@@ -1,6 +1,6 @@
 # Complexity-Analyzer
 
-Paste any code snippet and instantly get its **time and space complexity**, a line-by-line breakdown, and an optimization tip  — powered by Claude AI.
+Paste any code snippet and instantly get its **time and space complexity**, a line-by-line breakdown, and an optimization tip  — powered by Groq AI.
 
 ----
 
@@ -25,7 +25,7 @@ Paste any code snippet and instantly get its **time and space complexity**, a li
 |----------|---------------------|
 | Frontend | HTML, CSS, JS (vanilla) |
 | Backend  | Python, Flask       |
-| AI       | Anthropic Claude API (claude-sonnet) |
+| AI       | Groq API(llama-3.1-8b-instant) |
  
 ----
 
@@ -34,15 +34,11 @@ Paste any code snippet and instantly get its **time and space complexity**, a li
 ```
 complexity-analyzer/
 ├── index.html          # frontend — UI and fetch calls to Flask
-├── server.py           # backend — Flask server, calls Anthropic API
+├── server.py           # backend — Flask server, calls Groq API
 ├── requirements.txt    # Python dependencies
 ├── .env                # your API key (never committed)
 ├── .gitignore
-├── README.md
-└── examples/
-    ├── sorting.cpp     # bubble sort, merge sort, quick sort
-    ├── graphs.cpp      # BFS, DFS, Dijkstra's
-    └── dp.py           # fibonacci, knapsack, LCS
+└──  README.md
 ```
 
 ---
@@ -56,9 +52,9 @@ Browser (index.html)
     v
 Flask server (server.py)
     |
-    | calls Anthropic API with structured prompt
+    | calls Groq API with structured prompt
     v
-Claude (claude-sonnet)
+   Groq
     |
     | returns JSON { time, space, breakdown, tip }
     v
