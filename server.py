@@ -1,16 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import anthropic
+from groq import Groq
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+print(os.getenv("GEMINI_API_KEY"))
 @app.route("/analyze", methods=["POST"])
 def analyze():
     data = request.get_json()
@@ -41,16 +43,16 @@ Respond ONLY with a JSON object, no markdown fences, no preamble. Use this exact
 }}"""
     
     try:
-        message = client.messages.create(
-            model = "claude-sonnet-4-20250514",
-            max_tokens=1000,
-            messages=[{"role" : "user", "content": prompt}]
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",  # fast + good enough
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.2
         )
-
-        raw = message.content[0].text.strip()
+        raw = response.choices[0].message.content.strip()
         clean = raw.replace("```json","").replace("```","").strip()
 
-        import json
         parsed = json.loads(clean)
         return jsonify(parsed)
     

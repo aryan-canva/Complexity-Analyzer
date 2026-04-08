@@ -15,6 +15,10 @@ Paste any code snippet and instantly get its **time and space complexity**, a li
 
 ----
 
+## Screenshots
+![test1](images/test1.png)
+![test2](images/test2.png)
+
 ## Tech Stack
 
 | Layer    | Technology          |
